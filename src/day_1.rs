@@ -1,4 +1,4 @@
-pub fn solve(lines: &Vec<String>) -> (i32, i32) {
+pub fn solve(lines: &[String]) -> (i32, i32) {
     let mut dial = 50;
     let mut pass_1 = 0;
     let mut rot = 0;
