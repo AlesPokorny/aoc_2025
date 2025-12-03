@@ -18,12 +18,8 @@ pub fn part_2(lines: &[String]) -> u64 {
 
 fn get_max_joltage_of_bank(bank: &str, n_batteries: usize) -> u64 {
     fix_bank(&bank.chars().collect::<Vec<char>>(), n_batteries)
-        .chars()
-        .enumerate()
-        .map(|(index, battery)| {
-            battery.to_digit(10).unwrap() as u64 * 10_u64.pow(n_batteries as u32 - index as u32 - 1)
-        })
-        .sum()
+        .parse::<u64>()
+        .unwrap()
 }
 
 fn fix_bank(bank: &[char], n_batteries: usize) -> String {
