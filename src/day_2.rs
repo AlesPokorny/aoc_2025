@@ -31,7 +31,7 @@ pub fn part_2(lines: &[String]) -> u64 {
             continue;
         }
 
-        'number_loop: for x in gen_range(range){
+        'number_loop: for x in gen_range(range) {
             let n_digits = x.ilog10() + 1;
             let mut digits_vec: Vec<u8> = Vec::with_capacity(n_digits as usize);
 
@@ -60,7 +60,7 @@ pub fn part_2(lines: &[String]) -> u64 {
     result
 }
 
-fn gen_range(range_str: &str) -> RangeInclusive<u64>{
+fn gen_range(range_str: &str) -> RangeInclusive<u64> {
     let (left, right) = range_str.split_once("-").unwrap();
 
     let start = left.parse::<u64>().unwrap();
