@@ -2,6 +2,7 @@
 name = "aoc_2025"
 version = "0.1.0"
 edition = "2024"
+author = "Ales Pokorny"
 
 [dependencies]
 itertools = "0.9.0"
@@ -19,4 +20,8 @@ harness = false
 
 [[bench]]
 name = "day_3"
+harness = false
+
+[[bench]]
+name = "day_4"
 harness = false
