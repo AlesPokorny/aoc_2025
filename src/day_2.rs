@@ -3,7 +3,7 @@ use std::{ops::RangeInclusive, str};
 pub fn part_1(lines: &[String]) -> u64 {
     let mut result = 0;
 
-    for range in lines[0].trim().split(",") {
+    for range in lines[0].split(",") {
         if range.is_empty() {
             continue;
         }
@@ -26,33 +26,30 @@ pub fn part_1(lines: &[String]) -> u64 {
 pub fn part_2(lines: &[String]) -> u64 {
     let mut result = 0;
 
-    for range in lines[0].trim().split(",") {
+    for range in lines[0].split(",") {
         if range.is_empty() {
             continue;
         }
 
         'number_loop: for x in gen_range(range) {
             let n_digits = x.ilog10() + 1;
-            let mut digits_vec: Vec<u8> = Vec::with_capacity(n_digits as usize);
 
-            let mut temp_x = x;
-            while temp_x > 0 {
-                digits_vec.push((temp_x % 10) as u8);
-                temp_x /= 10;
-            }
-
-            for i in (1..=(n_digits / 2)).rev() {
+            for i in 1..=(n_digits / 2) {
                 if n_digits % i != 0 {
                     continue;
                 }
+                let pow = 10_u64.pow(i);
+                let n_reps = n_digits / i;
+                let last_digits = x % pow;
 
-                let chunks = digits_vec.chunks(i as usize).collect::<Vec<&[u8]>>();
-                let first = chunks[0];
-                if chunks.into_iter().any(|el| el != first) {
-                    continue;
+                let mut value = last_digits;
+                for rep in 1..n_reps {
+                    value += last_digits * pow.pow(rep);
                 }
-                result += x;
-                continue 'number_loop;
+                if value == x {
+                    result += x;
+                    continue 'number_loop;
+                }
             }
         }
     }
