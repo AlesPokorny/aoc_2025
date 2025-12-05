@@ -1,5 +1,3 @@
-use std::ops::RangeInclusive;
-
 pub fn part_1(lines: &[String]) -> u64 {
     let mut fresh = 0;
 
@@ -60,7 +58,6 @@ pub fn part_2(lines: &[String]) -> u64 {
 
     n_ids
 }
-
 
 #[cfg(test)]
 mod day_5_tests {
