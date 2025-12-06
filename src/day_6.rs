@@ -1,5 +1,3 @@
-// TODO: Clean both parts up a bit and speed it up
-
 pub fn part_1(lines: &[String]) -> u64 {
     let mut result = 0;
     let mut values = Vec::new();
@@ -26,15 +24,18 @@ pub fn part_1(lines: &[String]) -> u64 {
             .collect::<Vec<&str>>()
     }
     for (i, operator) in operators.into_iter().enumerate() {
-        if operator == "+" {
-            result += values.iter().map(|v| v[i]).sum::<u64>();
-            continue;
+        match operator {
+            "+" => result += values.iter().map(|v| v[i]).sum::<u64>(),
+            "*" => {
+                let mut temp_result = 1;
+                for v in values.iter() {
+                    temp_result *= v[i];
+                }
+                result += temp_result;
+            },
+            _ => panic!("invalid operator")
+
         }
-        let mut temp_result = 1;
-        for v in values.iter() {
-            temp_result *= v[i];
-        }
-        result += temp_result;
     }
 
     result
@@ -52,13 +53,13 @@ pub fn part_2(lines: &[String]) -> u64 {
         .collect();
 
     let mut result = 0;
+    let mut operator = ' ';
     let mut values = Vec::new();
-    let mut operators = Vec::new();
-    let mut temp_values = Vec::new();
     for number_chars in transposed {
         if number_chars.iter().all(|x| x == &' ') {
-            values.push(temp_values);
-            temp_values = Vec::new();
+            result += do_operation(&values, operator);
+            values.clear();
+            operator = ' ';
             continue;
         }
         let x = number_chars[..rows - 1]
@@ -67,26 +68,29 @@ pub fn part_2(lines: &[String]) -> u64 {
             .trim()
             .to_owned();
         if !x.is_empty() {
-            temp_values.push(x.parse::<u64>().unwrap());
+            values.push(x.parse::<u64>().unwrap());
             if number_chars[rows - 1] != ' ' {
-                operators.push(number_chars[rows - 1]);
+                operator = number_chars[rows - 1];
             }
         }
     }
-    values.push(temp_values);
-    for (i, operator) in operators.into_iter().enumerate() {
-        if operator == '+' {
-            result += values[i].iter().sum::<u64>();
-            continue;
-        }
-        let mut temp_result = 1;
-        for v in values[i].iter() {
-            temp_result *= v;
-        }
-        result += temp_result;
-    }
+    result += do_operation(&values, operator);
 
     result
+}
+
+fn do_operation(values: &Vec<u64>, operator: char) -> u64 {
+    match operator {
+        '+' => values.iter().sum::<u64>(),
+        '*' => {
+            let mut temp_result = 1;
+            for v in values.iter() {
+                temp_result *= v;
+            }
+            temp_result
+        },
+        _ => panic!("invalid operator"),
+    }
 }
 
 #[cfg(test)]
