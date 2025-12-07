@@ -32,9 +32,8 @@ pub fn part_1(lines: &[String]) -> u64 {
                     temp_result *= v[i];
                 }
                 result += temp_result;
-            },
-            _ => panic!("invalid operator")
-
+            }
+            _ => panic!("invalid operator"),
         }
     }
 
@@ -79,7 +78,7 @@ pub fn part_2(lines: &[String]) -> u64 {
     result
 }
 
-fn do_operation(values: &Vec<u64>, operator: char) -> u64 {
+fn do_operation(values: &[u64], operator: char) -> u64 {
     match operator {
         '+' => values.iter().sum::<u64>(),
         '*' => {
@@ -88,7 +87,7 @@ fn do_operation(values: &Vec<u64>, operator: char) -> u64 {
                 temp_result *= v;
             }
             temp_result
-        },
+        }
         _ => panic!("invalid operator"),
     }
 }
