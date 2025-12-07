@@ -1,9 +1,7 @@
-use std::collections::{HashMap, HashSet};
-
 pub fn part_1(lines: &[String]) -> u64 {
     let start = lines[0].chars().position(|c| c == 'S').unwrap();
-    let mut beam_positions = HashSet::new();
-    beam_positions.insert(start);
+    let mut beam_positions = vec![false; lines[0].len()];
+    beam_positions[start] = true;
 
     let mut n_splits = 0;
 
@@ -12,10 +10,10 @@ pub fn part_1(lines: &[String]) -> u64 {
             if field == '.' {
                 continue;
             }
-            if beam_positions.contains(&i) {
-                beam_positions.insert(i - 1);
-                beam_positions.insert(i + 1);
-                beam_positions.remove(&i);
+            if beam_positions[i] {
+                beam_positions[i - 1] |= true;
+                beam_positions[i + 1] |= true;
+                beam_positions[i] = false;
                 n_splits += 1;
             }
         }
@@ -26,24 +24,23 @@ pub fn part_1(lines: &[String]) -> u64 {
 
 pub fn part_2(lines: &[String]) -> u64 {
     let start = lines[0].chars().position(|c| c == 'S').unwrap();
-    let mut beam_positions = HashMap::new();
-    beam_positions.insert(start, 1);
+    let mut beam_positions = vec![0; lines[0].len()];
+    beam_positions[start] = 1;
 
     for line in lines[1..].iter() {
         for (i, field) in line.chars().enumerate() {
             if field == '.' {
                 continue;
             }
-            let n_new_beams = beam_positions.get(&i);
-            if let Some(&beams) = n_new_beams {
-                *beam_positions.entry(i - 1).or_insert(0) += beams;
-                *beam_positions.entry(i + 1).or_insert(0) += beams;
-                beam_positions.remove(&i);
-            }
+
+            let beams = beam_positions[i];
+            beam_positions[i - 1] += beams;
+            beam_positions[i + 1] += beams;
+            beam_positions[i] = 0;
         }
     }
 
-    beam_positions.values().sum::<usize>() as u64
+    beam_positions.iter().sum::<usize>() as u64
 }
 
 #[cfg(test)]
