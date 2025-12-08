@@ -13,5 +13,6 @@
 | [Day 5](./src/day_5.rs) | `71.69µs` | `4.96µs` |
 | [Day 6](./src/day_6.rs) | `61.07µs` | `1.64ms` |
 | [Day 7](./src/day_7.rs) | `10.87µs` | `10.30µs` |
+| [Day 8](./src/day_8.rs) | `11.24ms` | `11.72ms` |
 
 <!--- benchmarking table --->
