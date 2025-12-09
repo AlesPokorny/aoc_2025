@@ -39,15 +39,23 @@ pub fn part_2(lines: &[String]) -> usize {
         })
         .collect::<Vec<Point>>();
 
-    let mut max_size = 0;
-    let n_points = points.len();
+    let mut sizes = Vec::new();
 
     for (i, point_a) in points.iter().enumerate() {
-        'point_loop: for point_b in points[i + 1..points.len()].iter() {
-            let (x_min, x_max) = get_min_max(point_a.0, point_b.0);
-            let (y_min, y_max) = get_min_max(point_a.1, point_b.1);
+        for point_b in points[i + 1..points.len()].iter() {
+            sizes.push(((point_a, point_b), point_a.rectangle_size(point_b)));
+        }
+    }
 
-            for i in 0..n_points {
+    sizes.sort_unstable_by_key(|(_, size)| *size );
+
+    let n_points = points.len();
+
+    'point_loop: for ((point_a, point_b), size) in sizes.into_iter().rev() {
+        let (x_min, x_max) = get_min_max(point_a.0, point_b.0);
+        let (y_min, y_max) = get_min_max(point_a.1, point_b.1);
+
+        for i in 0..n_points {
                 let j = (i + 1) % n_points;
                 let (edge_a, edge_b) = (&points[i], &points[j]);
                 let (edge_x_min, edge_x_max) = get_min_max(edge_a.0, edge_b.0);
@@ -60,12 +68,10 @@ pub fn part_2(lines: &[String]) -> usize {
                     continue 'point_loop;
                 }
             }
-
-            max_size = max_size.max(point_a.rectangle_size(point_b));
-        }
+        return size
     }
 
-    max_size
+    unreachable!()
 }
 
 fn get_min_max(x: usize, y: usize) -> (usize, usize) {
