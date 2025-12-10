@@ -47,7 +47,7 @@ pub fn part_2(lines: &[String]) -> usize {
         }
     }
 
-    sizes.sort_unstable_by_key(|(_, size)| *size );
+    sizes.sort_unstable_by_key(|(_, size)| *size);
 
     let n_points = points.len();
 
@@ -56,19 +56,16 @@ pub fn part_2(lines: &[String]) -> usize {
         let (y_min, y_max) = get_min_max(point_a.1, point_b.1);
 
         for i in 0..n_points {
-                let j = (i + 1) % n_points;
-                let (edge_a, edge_b) = (&points[i], &points[j]);
-                let (edge_x_min, edge_x_max) = get_min_max(edge_a.0, edge_b.0);
-                let (edge_y_min, edge_y_max) = get_min_max(edge_a.1, edge_b.1);
-                if x_min < edge_x_max
-                    && x_max > edge_x_min
-                    && y_min < edge_y_max
-                    && y_max > edge_y_min
-                {
-                    continue 'point_loop;
-                }
+            let j = (i + 1) % n_points;
+            let (edge_a, edge_b) = (&points[i], &points[j]);
+            let (edge_x_min, edge_x_max) = get_min_max(edge_a.0, edge_b.0);
+            let (edge_y_min, edge_y_max) = get_min_max(edge_a.1, edge_b.1);
+            if x_min < edge_x_max && x_max > edge_x_min && y_min < edge_y_max && y_max > edge_y_min
+            {
+                continue 'point_loop;
             }
-        return size
+        }
+        return size;
     }
 
     unreachable!()
