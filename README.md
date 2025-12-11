@@ -14,6 +14,8 @@
 | [Day 6](./src/day_6.rs) | `61.07µs` | `1.64ms` |
 | [Day 7](./src/day_7.rs) | `10.87µs` | `10.30µs` |
 | [Day 8](./src/day_8.rs) | `11.24ms` | `11.72ms` |
-| [Day 9](./src/day_9.rs) | `1.21ms` | `92.48ms` |
+| [Day 9](./src/day_9.rs) | `80.07µs` | `8.04ms` |
+| [Day 10](./src/day_10.rs) | `1.21ms` | `92.48ms` |
+| [Day 11](./src/day_11.rs) | `62.75µs` | `308.05µs` |
 
 <!--- benchmarking table --->
