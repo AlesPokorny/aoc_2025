@@ -20,3 +20,4 @@
 | [Day 12](./src/day_12.rs) | `57.10µs` | `-` |
 
 <!--- benchmarking table --->
+Total time: 182ms
