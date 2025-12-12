@@ -16,10 +16,11 @@ use aoc_2025::day_8;
 use aoc_2025::day_9;
 use aoc_2025::day_10;
 use aoc_2025::day_11;
+use aoc_2025::day_12;
 
 fn main() {
-    let lines = read_lines("inputs/day_11.txt");
+    let lines = read_lines("inputs/day_12.txt");
 
-    println!("part 1 {}", day_11::part_1(&lines));
-    println!("part 2 {}", day_11::part_2(&lines));
+    println!("part 1 {}", day_12::part_1(&lines));
+    println!("part 2 {}", day_12::part_2(&lines));
 }
